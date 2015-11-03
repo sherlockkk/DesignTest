@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -12,7 +11,6 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.designtest.MainActivity;
 import com.example.designtest.R;
 import com.example.designtest.utils.Constant;
 import com.example.designtest.utils.HttpUtils;
