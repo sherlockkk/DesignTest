@@ -1,8 +1,11 @@
 package com.example.designtest.activity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,10 +16,13 @@ import android.widget.FrameLayout;
 import com.example.designtest.R;
 
 public class MainActivity extends AppCompatActivity {
-private Toolbar mToolBar;
+    private String curId;
+
+    private Toolbar mToolBar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private DrawerLayout mDrawerLayout;
     private FrameLayout mFrameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,31 +34,38 @@ private Toolbar mToolBar;
     //加载最后一个Fragment
     private void loadLatest() {
         getSupportFragmentManager().beginTransaction().replace(R.id.f1_content, new Fragment(), "latest").commit();
+        curId = "latest";
+    }
+    public void setCurId(String id){
+        curId = id;
     }
 
     //控件初始化
+    @TargetApi(Build.VERSION_CODES.M)
     private void initView() {
-         mToolBar = (Toolbar) findViewById(R.id.toolbar);
-         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
-         mFrameLayout = (FrameLayout) findViewById(R.id.f1_content);
-         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        onListener();
-    }
-
-    //控件的监听
-    private void onListener() {
-        SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mToolBar.setBackgroundColor(getColor(android.support.design.R.color.background_material_light));
+        setSupportActionBar(mToolBar);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 replaceFragment();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
-        };
+        });
+        mFrameLayout = (FrameLayout) findViewById(R.id.f1_content);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolBar, R.string.app_name, R.string.app_name);
+        mDrawerLayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
     //Fragment的动态替换
     private void replaceFragment() {
-
+        if (curId.equals("latest")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.f1_content,new Fragment(),"latest").commit();
+        }
     }
 
     @Override

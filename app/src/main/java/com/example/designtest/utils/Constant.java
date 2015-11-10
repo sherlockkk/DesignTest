@@ -12,5 +12,6 @@ public class Constant {
     //http://news-at.zhihu.com/api/4/
     //start-image/1080*1776
     public static final String BASEURL = "http://news-at.zhihu.com/api/4/";
-    public static final String START=  "start-image/1080*1776";
+    public static final String START = "start-image/1080*1776";
+    public static final String THEMES = "themes";
 }
