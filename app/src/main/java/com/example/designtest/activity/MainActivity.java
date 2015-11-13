@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mFrameLayout = (FrameLayout) findViewById(R.id.f1_content);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolBar, R.string.app_name, R.string.app_name);
+        final ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolBar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
@@ -67,6 +67,18 @@ public class MainActivity extends AppCompatActivity {
         if (curId.equals("latest")){
             getSupportFragmentManager().beginTransaction().replace(R.id.f1_content,new Fragment(),"latest").commit();
         }
+    }
+
+    public void closeMenu(){
+        mDrawerLayout.closeDrawers();
+    }
+
+    public void setSwipeRefreshEnable(boolean enable){
+        mSwipeRefreshLayout.setEnabled(enable);
+    }
+
+    public void setToolBarTitle(String text){
+        mToolBar.setTitle(text);
     }
 
     @Override
