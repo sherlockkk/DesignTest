@@ -46,6 +46,7 @@ private Toolbar mToolBar;
             public void onRefresh() {
                 replaceFragment();
                 mSwipeRefreshLayout.setRefreshing(false);
+
             }
         };
     }
